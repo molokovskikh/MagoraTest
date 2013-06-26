@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Magora">
+  <DataContextMoniker Name="/MagoraDataContext" />
+  <nestedChildShapes>
+    <classShape Id="74a2aa5b-431a-4bc0-a4fc-809214423221" absoluteBounds="1.875, 1.375, 2, 1.1049544166525205">
+      <DataClassMoniker Name="/MagoraDataContext/MagoraData" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c1b1e3b9-4059-4a83-a4a2-35e8ddff3d23" absoluteBounds="1.8899999999999997, 1.835, 1.9700000000000002, 0.54495441665252042" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

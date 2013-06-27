@@ -2,10 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Magora">
   <DataContextMoniker Name="/MagoraDataContext" />
   <nestedChildShapes>
-    <classShape Id="74a2aa5b-431a-4bc0-a4fc-809214423221" absoluteBounds="1.875, 1.375, 2, 1.1049544166525205">
+    <classShape Id="a8a6b60d-9fa2-43f0-a418-6915909c533a" absoluteBounds="5, 1.75, 2, 1.1049544166525205">
       <DataClassMoniker Name="/MagoraDataContext/MagoraData" />
       <nestedChildShapes>
-        <elementListCompartment Id="c1b1e3b9-4059-4a83-a4a2-35e8ddff3d23" absoluteBounds="1.8899999999999997, 1.835, 1.9700000000000002, 0.54495441665252042" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="08ac5355-f2c2-4b5c-94b6-670687e88a2d" absoluteBounds="5.015, 2.21, 1.9700000000000002, 0.54495441665252042" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

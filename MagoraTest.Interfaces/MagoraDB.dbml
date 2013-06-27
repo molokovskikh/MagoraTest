@@ -2,7 +2,7 @@
   <Connection Mode="AppSettings" ConnectionString="Data Source=(localdb)\Projects;Initial Catalog=MagoraDatabase;Integrated Security=True;Connect Timeout=30" SettingsObjectName="MagoraTest.Interfaces.Properties.Settings" SettingsPropertyName="MagoraDatabaseConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.MagoraData" Member="MagoraDatas">
     <Type Name="MagoraData">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Data" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
     </Type>
   </Table>

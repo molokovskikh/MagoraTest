@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using QDFeedParser;
 using QDFeedParser.Xml;
 using MagoraTest.Entity;
+using System.Data.SqlClient;
 
 
 namespace WService_GenData
@@ -54,11 +55,12 @@ namespace WService_GenData
                                "http://hh.ru/rss/searchvacancy.xml?itemsOnPage=1000&areaId=4&searchPeriod=60"
                                };           
 
-           TaskFactory factory = new TaskFactory();
+          
            ts = ts ?? new CancellationTokenSource();
           
            
-           Task tGen=factory.StartNew(() => 
+           
+           Action  fGen = ()=> 
            {                   
                HttpFeedFactory hff = new HttpFeedFactory();
                LinqFeedXmlParser parser = new LinqFeedXmlParser();
@@ -70,7 +72,13 @@ namespace WService_GenData
                    rss_url.Aggregate(new List<string>(),
                        (f, x) =>
                        {
-                           f.Add(hff.DownloadXml(new Uri(x)));
+                           try
+                           {
+                               f.Add(hff.DownloadXml(new Uri(x)));
+                           }
+                           catch(QDFeedParser.MissingFeedException)
+                           {
+                           }
                            return f;
                        }
                                     ).Aggregate(new List<IFeedItem>(),
@@ -80,30 +88,50 @@ namespace WService_GenData
                                             f.AddRange(feed.Items.ToArray<IFeedItem>());                                            
                                             return f;
                                         })
-                                           );
+                                           );                   
                }
+           };
+
+           
+           for(int i=1;i<20;i++)           
+               Task.Factory.StartNew(fGen);
+
+           Task.Factory.StartNew(() =>
+           {
+               GenData.Instance.Add(
+                   new Rss20FeedItem
+                   {
+                       Content = "Заголовок случайных данных\nСлучайные данные\nКонцепция MVC позволяет разделить данные, представление и обработку действий пользователя на три отдельных компонента\nМодель (англ. Model). Модель предоставляет знания: данные и методы работы с этими данными, реагирует на запросы, изменяя своё состояние. Не содержит информации, как эти знания можно визуализировать.\nПредставление, вид (англ. View). Отвечает за отображение информации (визуализацию). Часто в качестве представления выступает форма (окно) с графическими элементами.\nКонтроллер (англ. Controller). Обеспечивает связь между пользователем и системой: контролирует ввод данных пользователем и использует модель и представление для реализации необходимой реакции."
+                   }
+                                    );
            });
 
-           Task tAddDb= factory.StartNew(() => 
+           Task tAddDb= Task.Factory.StartNew(() => 
            {
                int cnt = MagoraTest.Entity.MagoraRepository.Instance.Records.Count();
                while (true)
                {
                    if (ts.IsCancellationRequested) break;
-                   MagoraRepository.Instance.AddRange(
-                   GenData.Instance.Skip(cnt).Take(150).Select(s => new MagoraData() { Data = s.Content })
-                   );
-                   GenData.Instance.RemoveRange(0, 150);
+                   try
+                   {
+                       MagoraRepository.Instance.AddRange(
+                       GenData.Instance.Skip(cnt).Take(150).Select(s => new MagoraData() { Data = s.Content })
+                       );
+                   }
+                   catch (SqlException)
+                   {
+                   }
+                   if(GenData.Instance.Count>150)
+                    GenData.Instance.RemoveRange(0, 150);
+                   
                    MagoraRepository.Instance.Save();
-
+                   Thread.Sleep(1000);
                }
            });
 
-
-           //if (tGen.Status != TaskStatus.Running)  tGen.Start();
-           //if (tAddDb.Status != TaskStatus.Running)  tAddDb.Start();
-           tGen.Wait();
-           tAddDb.Wait();
+          
+           //if(tGen.Status != TaskStatus.Faulted)   tGen.Wait();
+           if(tAddDb.Status != TaskStatus.Faulted)   tAddDb.Wait();
         }
 
         protected override void OnStop()

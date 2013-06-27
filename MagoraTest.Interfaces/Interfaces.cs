@@ -7,13 +7,18 @@ using System.Data.Linq;
 using MagoraTest.Entity;
 
 namespace MagoraTest.Interfaces
-{      
+{
+    public interface IMagoraData
+    {
+        string Title { get; }
+        string Data { get; set; }
+    }
     //Репозитарий
     public interface IMagoraRepository
     {
-        IEnumerable<MagoraData> Records { get; }
-        void Add(MagoraData i);
-        void AddRange(IEnumerable<MagoraData> e);
+        IEnumerable<IMagoraData> Records { get; }
+        void Add(IMagoraData i);
+        void AddRange(IEnumerable<IMagoraData> e);
         void Save();
     }
 }

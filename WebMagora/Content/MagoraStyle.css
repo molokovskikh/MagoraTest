@@ -1,0 +1,114 @@
+﻿html, body {
+  border-style:none;
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+#header 
+{
+    position: fixed;
+    height:60px;
+    top: 0; 
+    background-color:rgba(78, 65, 128, 0.9);
+    border-radius:1px 7px;
+    border-style:solid;
+    border-width:thin;
+    text-shadow: 2px 2px 2px rgba(78, 65, 128, 0.9);
+    background-image:-webkit-linear-gradient(top, rgba(78, 65, 128, 0.1), rgba(78, 65, 128, 0.9));
+}
+
+#content 
+{      
+    top:62px;
+    bottom:42px;
+    background-color: rgba(202, 209, 199, 0.25);
+    height:100%;    
+    overflow-y:scroll;
+    overflow-x:hidden;
+    position:fixed;
+}
+
+
+
+#footer {
+    height:40px;
+    background-color:rgba(99, 105, 52, 0.5);
+    border-radius:7px 1px;
+    border-style:solid;
+    border-width:thin;
+    text-shadow: 2px 2px 2px rgba(78, 65, 128, 0.9);
+    background-image:-webkit-linear-gradient(top, rgba(99, 105, 52, 0.1), rgba(99, 105, 52, 0.8));
+    position: fixed;
+    bottom: 0;
+}
+
+#header, #footer {    
+    width: 100%;    
+    background-color: #B6F7AA;
+    font-size: x-large;
+    font-weight: bold;
+    font-style: normal;
+    text-transform: lowercase;
+    color: #0000CC;
+}
+
+
+
+.stream 
+{ 
+    list-style-type:none;
+    padding:10px;
+}
+
+.stream li {    
+    background-color: rgba(249, 251, 208, 0.66);
+    border: thin solid #C0C0C0;
+    border-radius:4px;
+    margin-bottom:6px    
+}
+
+.stream li:nth-child(even) {
+    background-color: rgba(219, 255, 219, 0.43);
+}
+
+.snormal_row {
+    height:45px;
+}
+
+.s7_row 
+{
+    height:60px;
+}
+
+.s9_row 
+{
+    height:75px;
+}
+
+.loading_row>img {    
+    display: inline;
+    margin-left: 10%;   
+}
+.loading_row > div {
+    display: inline;
+    margin-left: 1%;
+    margin-top: 3px;
+    position: absolute;
+    font-size: large;
+    color: #6A06FF;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.title_row {
+    font-size: large;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.display_row {
+    color: #8F8570;
+}

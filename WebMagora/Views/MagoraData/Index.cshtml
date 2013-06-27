@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMagora.cshtml";
+}
+
+@section header
+{
+    заголовок
+}
+
+<ul class="stream">
+   @{
+       var cnt = 1;
+       foreach(var row in Model)
+       {
+       <li class="s@(Html.Raw((row.RowSize(cnt)>0)?row.RowSize(cnt):"normal"))_row">
+           <img src="@(Html.Raw(Url.RequestContext.RouteData.Values["controller"]))/images/@(Html.Raw(row.ImageId(cnt)))"/>
+           <span class="title_row">@row.Title</span>
+           <span class="display_row">@row.Display(cnt++)</span>
+      </li>
+      }
+   }
+  <li class="loading_row"><img src="../../Images/ajax-loader.gif"/><div>Загрузка...</div></li>
+ </ul>
+<script>
+    $(document).ready(function ()
+    {
+        var set_height=function () {
+            var _c = $('#content')
+            debugger
+            _c.height($(window).height()-parseInt(_c.css('top')) - parseInt(_c.css('bottom')));
+        };
+
+        
+        $(window).resize(set_height);
+        set_height();
+
+       
+        $('#content').scroll(function (e) {
+            var _c = $(this);            
+            if (
+                 $('.stream>li:last', _c).position().top
+                 < parseInt(_c.css('top')) + _c.height()
+                )
+            {
+                setTimeout(function () { //Не забываем заремарить после теста
+                    $.ajax({
+                        url: '@(Html.Raw(Request.RawUrl))',
+                        data: { give: 50, count: $('#content>.stream>li').not('.loading_row').length },
+                        success: function (data) {
+                            $('#content>.stream>.loading_row').before(data);
+                        }
+                    });
+                }, 1000);//Не забываем заремарить после теста
+            }
+        });
+        
+    }
+    );
+
+</script>
+
+@section footer
+{
+    подвал
+}

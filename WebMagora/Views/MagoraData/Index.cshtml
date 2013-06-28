@@ -13,48 +13,70 @@
        var cnt = 1;
        foreach(var row in Model)
        {
-       <li class="s@(Html.Raw((row.RowSize(cnt)>0)?row.RowSize(cnt):"normal"))_row">
+       <li class="row s@(Html.Raw((row.RowSize(cnt)>0)?row.RowSize(cnt):"normal"))_row">
+           
            <img src="@(Html.Raw(Url.RequestContext.RouteData.Values["controller"]))/images/@(Html.Raw(row.ImageId(cnt)))"/>
-           <span class="title_row">@row.Title</span>
-           <span class="display_row">@row.Display(cnt++)</span>
+           <b class="title_row">@row.Title</b><div class="display_row">@row.Display(cnt++)</div>
       </li>
       }
    }
   <li class="loading_row"><img src="../../Images/ajax-loader.gif"/><div>Загрузка...</div></li>
  </ul>
 <script>
-    $(document).ready(function ()
-    {
-        var set_height=function () {
+    $(document).ready(function () {
+        var set_height = function () {
             var _c = $('#content')
             debugger
-            _c.height($(window).height()-parseInt(_c.css('top')) - parseInt(_c.css('bottom')));
+            _c.height($(window).height() - parseInt(_c.css('top')) - parseInt(_c.css('bottom')));
         };
 
-        
+
         $(window).resize(set_height);
         set_height();
 
-       
+        var ajax_request = function (b) {
+            $.ajax({
+                url: '@(Html.Raw(Request.RawUrl))',
+                data: { give: 50, count: $('#content>.stream>li').not('.loading_row').length },
+                success: function (data) {
+                    $('#content>.stream>.loading_row').before(data);
+                    if (b) b();
+                },
+            })
+        };
+
         $('#content').scroll(function (e) {
-            var _c = $(this);            
+            var _c = $(this);
             if (
                  $('.stream>li:last', _c).position().top
                  < parseInt(_c.css('top')) + _c.height()
-                )
-            {
+                ) {
+                $('.stream>li:last', _c).show();
                 setTimeout(function () { //Не забываем заремарить после теста
-                    $.ajax({
-                        url: '@(Html.Raw(Request.RawUrl))',
-                        data: { give: 50, count: $('#content>.stream>li').not('.loading_row').length },
-                        success: function (data) {
-                            $('#content>.stream>.loading_row').before(data);
-                        }
-                    });
+                    ajax_request();
                 }, 1000);//Не забываем заремарить после теста
             }
         });
-        
+
+
+        //Если елементов нет, то будем получть данные с интервалом 4 секунды ,пока они не придут
+        if ($('#content>.stream>li').not('.loading_row').length == 0)
+        {
+            var cycle_reload_first = function (before) {                
+                if (before)
+                    before(function () {
+                        if ($('#content>.stream>li').not('.loading_row').length == 0)
+                        {
+                            debugger
+                            setTimeout(cycle_reload_first(before), 4000);
+                        }
+                    }
+                    );
+
+            };
+            //Первый старт
+            setTimeout(function () { cycle_reload_first(ajax_request) }, 4000);
+        }
     }
     );
 

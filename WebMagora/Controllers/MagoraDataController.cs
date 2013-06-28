@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebMagora.Filters;
 using WebMagora.Models;
 
 namespace WebMagora.Controllers
 {
+    [InitDatabase]
     public class MagoraDataController : Controller
     {
         //

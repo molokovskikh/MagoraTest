@@ -56,6 +56,19 @@ namespace MagoraTest.Entity
         public MagoraRepository()       
         {
              _db = new MagoraDataContext();
+             Init();
+        }
+
+        void Init()
+        {
+            if (_db == null) return;
+
+            if (!_db.DatabaseExists())
+            {
+                _db.CreateDatabase();
+                _db.ExecuteCommand(string.Format("ALTER DATABASE {0} COLLATE SQL_Latin1_General_CP1251_CI_AS",_db.Connection.Database.ToString()));
+            }
+         
         }
         
         public IEnumerable<IMagoraData> Records
@@ -71,7 +84,7 @@ namespace MagoraTest.Entity
         public void Add(IMagoraData i)
         {                                   
             lock (i)
-            {
+            {                
                 Monitor.Enter(_db.MagoraDatas);
                 _db.MagoraDatas.InsertOnSubmit(i as MagoraData);
                 Monitor.Exit(_db.MagoraDatas);

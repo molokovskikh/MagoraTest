@@ -3,10 +3,9 @@
        var cnt = 1+(int)ViewData["count"];
        foreach(var row in Model)
        {
-       <li class="s@(Html.Raw((row.RowSize(cnt)>0)?row.RowSize(cnt):"normal"))_row">
-           <img src="images/@(Html.Raw(row.ImageId(cnt)))"/>
-           <span class="title_row">@row.Title</span>
-           <span class="display_row">@row.Display(cnt++)</span>
+       <li class="row s@(Html.Raw((row.RowSize(cnt)>0)?row.RowSize(cnt):"normal"))_row">           
+           <img src="@(Html.Raw(Url.RequestContext.RouteData.Values["controller"]))/images/@(Html.Raw(row.ImageId(cnt)))"/>
+           <b class="title_row">@row.Title</b><div class="display_row">@row.Display(cnt++)</div>
       </li>
       }
     }

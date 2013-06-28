@@ -12,21 +12,21 @@ using QDFeedParser;
 using QDFeedParser.Xml;
 using MagoraTest.Entity;
 using System.Data.SqlClient;
-
+using System.Collections.Concurrent;
 
 namespace WService_GenData
 {
     public partial class GenData : ServiceBase
     {
-        private static List<IFeedItem> _instance = null;
+        private static BlockingCollection<IFeedItem> _instance = null;
         private static readonly object syncRoot = new object();
-        public static List<IFeedItem> Instance
+        public static  BlockingCollection<IFeedItem> Instance
         {
             get
-            {
+            {                
                 if (_instance != null) return _instance;
                 Monitor.Enter(syncRoot);
-                Interlocked.Exchange<List<IFeedItem>>(ref _instance, new List<IFeedItem>());
+                Interlocked.Exchange<BlockingCollection<IFeedItem>>(ref _instance, new BlockingCollection<IFeedItem>());
                 Monitor.Exit(syncRoot);
                 return _instance;
             }
@@ -48,6 +48,16 @@ namespace WService_GenData
 
         protected override void OnStart(string[] args)
         {
+            Func<string, string> f_replace = (input) => input.Replace("</div><div>", "\n")
+                                                     .Replace("<div>", "")
+                                                     .Replace("<br>","\n")
+                                                     .Replace("</br>","\n")
+                                                     .Replace("<br/>", "\n")
+                                                     .Replace("&gt;", ">")
+                                                     .Replace("&lt;", "<")
+                                                     .Replace("&quot;","\"")
+                                                     .Replace("&amp;","'");
+
             string[] rss_url = {
                                "http://news.yandex.ru/politics.rss",
                                "http://news.yandex.ru/hardware.rss",
@@ -68,7 +78,7 @@ namespace WService_GenData
                while (true)
                {
                    if(ts.IsCancellationRequested) break;
-                   GenData.Instance.AddRange(
+                                      
                    rss_url.Aggregate(new List<string>(),
                        (f, x) =>
                        {
@@ -88,7 +98,7 @@ namespace WService_GenData
                                             f.AddRange(feed.Items.ToArray<IFeedItem>());                                            
                                             return f;
                                         })
-                                           );                   
+                                        .Aggregate(0,(a,b)=>{ GenData.Instance.Add(b);return a;});
                }
            };
 
@@ -115,14 +125,24 @@ namespace WService_GenData
                    try
                    {
                        MagoraRepository.Instance.AddRange(
-                       GenData.Instance.Skip(cnt).Take(150).Select(s => new MagoraData() { Data = s.Content })
+                       GenData.Instance.Skip(cnt).Take(150).Select(s => new MagoraData() { Data = f_replace(s.Content) })
                        );
                    }
                    catch (SqlException)
                    {
                    }
+                   catch(Exception exc)
+                   {
+                   }
                    if(GenData.Instance.Count>150)
-                    GenData.Instance.RemoveRange(0, 150);
+                   {
+                       IFeedItem item=new Rss20FeedItem();
+                       for(int i=0;i<150;)
+                       {
+                           if(GenData.Instance.TryTake(out item))
+                               i++;
+                       }
+                   }
                    
                    MagoraRepository.Instance.Save();
                    Thread.Sleep(1000);

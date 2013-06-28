@@ -9,7 +9,7 @@ namespace WebMagora.Models
     public class MagoraData:IMagoraData
     {
         const string splitter_str ="\n"; //Разделитель строк
-        const string splitter_html_string = "</br>"; //Разделитель строк в Display
+        const string splitter_html_string = "<br>"; //Разделитель строк в Display
         
         /// <summary>
         /// Данные
@@ -95,16 +95,17 @@ namespace WebMagora.Models
                     cs=4;
                     break;
             }
-            return string.Format(
+            
+            string ffd= string.Format(
             Data.Split(new string[] { splitter_str }, StringSplitOptions.RemoveEmptyEntries)
                 .Skip(1).Take(cs)
                 .Aggregate(string.Empty, (f, e) =>
                     {                        
-                        f+=!string.IsNullOrEmpty(f)?"{0}":"";
+                        f+=e+(!string.IsNullOrEmpty(f)?"{0}":"");
                         return f;
                     }),
                    splitter_html_string );
-
+            return ffd;
         }
     }
 }

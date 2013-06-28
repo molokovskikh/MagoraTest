@@ -37,6 +37,7 @@
       <HintPath>packages\qdfeed.1.0.2\lib\net35\QDFeedParser.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
@@ -71,6 +72,11 @@
       <Project>{aac23b8a-f6dc-4c86-b2d1-454a46f729f2}</Project>
       <Name>MagoraTest.Interfaces</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GenData.resx">
+      <DependentUpon>GenData.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

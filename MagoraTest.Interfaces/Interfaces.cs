@@ -8,6 +8,7 @@ using MagoraTest.Entity;
 
 namespace MagoraTest.Interfaces
 {
+    //Модель данных
     public interface IMagoraData
     {
         string Title { get; }

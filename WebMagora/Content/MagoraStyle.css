@@ -84,17 +84,17 @@
 }
 
 .snormal_row {      
-    height:45px;
-}
-
-.s7_row 
-{
     height:60px;
 }
 
-.s9_row 
-{
-    height:75px;
+.s7_row {
+    height: 75px;
+    /*color: #1B6B70;*/
+}
+
+.s9_row {
+    height: 90px;
+    /*color: #FF0000;*/
 }
 
 
@@ -134,6 +134,10 @@
     position: relative;
     bottom: 1px;
     left: 55px;
+    white-space:normal;
+    line-height: 13px;
+    bottom: 10px;
+    margin-right: 75px;
 }
 
 

@@ -12,6 +12,9 @@ using System.ComponentModel;
 namespace MagoraTest.Entity
 {   
     
+    /// <summary>
+    /// Модель данных для списка
+    /// </summary>
     public partial class MagoraData : INotifyPropertyChanging, INotifyPropertyChanged,IMagoraData
     {
         string IMagoraData.Title
@@ -35,6 +38,11 @@ namespace MagoraTest.Entity
 
     }
     
+
+    //Работа с БД
+    /// <summary>
+    /// Репозитори данных
+    /// </summary>
     public class MagoraRepository: IMagoraRepository
     {
         private static IMagoraRepository _instance = null;
@@ -74,8 +82,9 @@ namespace MagoraTest.Entity
         public IEnumerable<IMagoraData> Records
         {            
             get 
-            {                
-                return _db.GetTable<MagoraData>();                
+            {
+              //_db.ExecuteCommand("SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED");
+               return _db.GetTable<MagoraData>();               
             }
         }
 

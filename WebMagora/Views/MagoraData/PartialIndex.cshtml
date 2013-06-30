@@ -5,7 +5,7 @@
        {
        <li class="row s@(Html.Raw((row.RowSize(cnt)>0)?row.RowSize(cnt):"normal"))_row">           
            <img src="@(Html.Raw(Url.RequestContext.RouteData.Values["controller"]))/images/@(Html.Raw(row.ImageId(cnt)))"/>
-           <b class="title_row">@row.Title</b><div class="display_row">@row.Display(cnt++)</div>
+           <b class="title_row">@row.Title</b><div class="display_row">@(Html.Raw(row.Display(cnt++)))</div>
       </li>
       }
     }

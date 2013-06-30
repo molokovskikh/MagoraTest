@@ -40,8 +40,7 @@ namespace WebMagora.Filters
                             context.Database.ExecuteSqlCommand(
 string.Format(
 @"
-ALTER DATABASE {0} COLLATE SQL_Latin1_General_CP1251_CI_AS
-GO
+ALTER DATABASE {0} COLLATE SQL_Latin1_General_CP1251_CI_AS;
 CREATE TABLE [dbo].[MagoraData] 
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 

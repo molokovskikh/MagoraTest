@@ -16,7 +16,7 @@
        <li class="row s@(Html.Raw((row.RowSize(cnt)>0)?row.RowSize(cnt):"normal"))_row">
            
            <img src="@(Html.Raw(Url.RequestContext.RouteData.Values["controller"]))/images/@(Html.Raw(row.ImageId(cnt)))"/>
-           <b class="title_row">@row.Title</b><div class="display_row">@row.Display(cnt++)</div>
+           <b class="title_row">@row.Title</b><div class="display_row">@(Html.Raw(row.Display(cnt++)))</div>
       </li>
       }
    }
@@ -24,13 +24,14 @@
  </ul>
 <script>
     $(document).ready(function () {
+        //Установим высоту списка, вычтем из высоты всего окна, высоты подвала и заголовка 
         var set_height = function () {
             var _c = $('#content')
-            debugger
+           // debugger
             _c.height($(window).height() - parseInt(_c.css('top')) - parseInt(_c.css('bottom')));
         };
 
-
+        //Обработчик на изменение размера
         $(window).resize(set_height);
         set_height();
 
@@ -45,8 +46,10 @@
             })
         };
 
+        //Прокрутка окна
         $('#content').scroll(function (e) {
             var _c = $(this);
+            //Если снизу показался индикатор загрузки, то загружаем следующую порцию данных
             if (
                  $('.stream>li:last', _c).position().top
                  < parseInt(_c.css('top')) + _c.height()
@@ -59,7 +62,7 @@
         });
 
 
-        //Если елементов нет, то будем получть данные с интервалом 4 секунды ,пока они не придут
+        //Если элементов нет, то будем получать данные с интервалом 4 секунды ,пока они не придут
         if ($('#content>.stream>li').not('.loading_row').length == 0)
         {
             var cycle_reload_first = function (before) {                
@@ -67,7 +70,7 @@
                     before(function () {
                         if ($('#content>.stream>li').not('.loading_row').length == 0)
                         {
-                            debugger
+                           // debugger
                             setTimeout(cycle_reload_first(before), 4000);
                         }
                     }

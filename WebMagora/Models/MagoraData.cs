@@ -39,13 +39,13 @@ namespace WebMagora.Models
         {
             int ost = -1;
             Math.DivRem(number, o, out ost);
-            if(ost==0&&number==o)
+            if(ost==0)//&&number==o)
                 return o;
             return 0;
         }
 
         /// <summary>
-        /// Возвращает номер картинки в зависимости о порядкового номера
+        /// Возвращает номер картинки в зависимости от порядкового номера
         /// </summary>
         /// <param name="number">Порядковый номер в результатах</param>
         /// <returns></returns>

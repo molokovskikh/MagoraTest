@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WService_GenData", "WService_GenData.csproj", "{3B718B9B-CF18-4198-BB16-8FBC9119341D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WService_GenData", "WService_GenData\WService_GenData.csproj", "{3B718B9B-CF18-4198-BB16-8FBC9119341D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagoraTest.Interfaces", "MagoraTest.Interfaces\MagoraTest.Interfaces.csproj", "{AAC23B8A-F6DC-4C86-B2D1-454A46F729F2}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MagoraDatabase", "MagoraDatabase\MagoraDatabase.sqlproj", "{6F9EBF85-07DB-49D8-BCAA-CE6EAB14741B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMagora", "WebMagora\WebMagora.csproj", "{73C8E80B-8DAC-41C4-93C3-285B046DC93A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{2D718C7F-BA6A-4740-95A4-D96505EA0A72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,16 +23,14 @@ Global
 		{AAC23B8A-F6DC-4C86-B2D1-454A46F729F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAC23B8A-F6DC-4C86-B2D1-454A46F729F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAC23B8A-F6DC-4C86-B2D1-454A46F729F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6F9EBF85-07DB-49D8-BCAA-CE6EAB14741B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F9EBF85-07DB-49D8-BCAA-CE6EAB14741B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F9EBF85-07DB-49D8-BCAA-CE6EAB14741B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{6F9EBF85-07DB-49D8-BCAA-CE6EAB14741B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F9EBF85-07DB-49D8-BCAA-CE6EAB14741B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6F9EBF85-07DB-49D8-BCAA-CE6EAB14741B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{73C8E80B-8DAC-41C4-93C3-285B046DC93A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{73C8E80B-8DAC-41C4-93C3-285B046DC93A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73C8E80B-8DAC-41C4-93C3-285B046DC93A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73C8E80B-8DAC-41C4-93C3-285B046DC93A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D718C7F-BA6A-4740-95A4-D96505EA0A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D718C7F-BA6A-4740-95A4-D96505EA0A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D718C7F-BA6A-4740-95A4-D96505EA0A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D718C7F-BA6A-4740-95A4-D96505EA0A72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,6 +8,9 @@ using WebMagora.Logger;
 
 namespace WebMagora.Controllers
 {
+    /// <summary>
+    /// Обработчик ошибок
+    /// </summary>
     public class ErrorController : Controller
     {
         void logged404()

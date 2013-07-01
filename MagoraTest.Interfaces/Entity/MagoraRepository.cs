@@ -67,6 +67,9 @@ namespace MagoraTest.Entity
              Init();
         }
 
+        /// <summary>
+        /// Инициализация БД
+        /// </summary>
         void Init()
         {
             if (_db == null) return;

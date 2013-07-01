@@ -5,6 +5,9 @@ using System.Web;
 
 namespace WebMagora.Logger
 {
+    /// <summary>
+    /// Логгер
+    /// </summary>
     public static class logger
     {
         //static readonly log4net.ILog sql = log4net.LogManager.GetLogger("sql");
@@ -284,7 +287,15 @@ namespace WebMagora.Logger
             }
         }
 
+        /// <summary>
+        /// Логгер для отправки на e-mail
+        /// </summary>
         public static readonly log4net.ILog smtp = log4net.LogManager.GetLogger("smtp");
+        
+        /// <summary>
+        /// Информация о клиенте
+        /// </summary>
+        /// <returns></returns>
         private static string get_info()
         {
             HttpRequest request = HttpContext.Current.Request;
@@ -307,9 +318,24 @@ namespace WebMagora.Logger
             return res;
         }
 
+        /// <summary>
+        /// Логер ошибок работы с Sql
+        /// </summary>
         public static readonly log4net.ILog sql = new overlaylog("sql", (exc, m) => { if (m != null) smtp.Error(m, exc); else smtp.Error(exc); /*if (exc is System.Data.SqlClient.SqlException) throw exc;*/ });
+        
+        /// <summary>
+        /// Логер ошибок в контроллерах 
+        /// </summary>
         public static readonly log4net.ILog controller = new overlaylog("controller", exc => smtp.Error(exc));
+        
+        /// <summary>
+        /// Логер ошибок на уровне MvcApplication
+        /// </summary>
         public static readonly log4net.ILog app = new overlaylog("app", exc => smtp.Error(get_info(), exc));//log4net.LogManager.GetLogger("app");
+        
+        /// <summary>
+        /// Логгер запросов по несуществующим маршрутам (ошибка 404)
+        /// </summary>
         public static readonly log4net.ILog grab = log4net.LogManager.GetLogger("grab");
 
     }

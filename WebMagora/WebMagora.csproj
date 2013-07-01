@@ -184,18 +184,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MagoraDataController.cs" />
     <Compile Include="Filters\InitDataBase.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Filters\MagoraHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="logger\logger.cs" />
-    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\MagoraData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -16,6 +16,7 @@ namespace WebMagora.Controllers
        
         public ActionResult Index(int ? give,int ? count)
         {
+            //Если give>0 то это Ajax запрос (то частичный рендеринг)
             string viewName=count.HasValue ? "PartialIndex" : "Index";
             var data = MagoraTest.Entity.MagoraRepository.Instance.Records
                     .Skip(count.HasValue ? count.Value : 0)
@@ -29,6 +30,11 @@ namespace WebMagora.Controllers
             return View(viewName,data);
         }
 
+        /// <summary>
+        /// Обработчик картинок
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public FileResult Images(int id)
         {
             return File(string.Format(@"..\..\images\orderedList{0}.png", id), "image/png");

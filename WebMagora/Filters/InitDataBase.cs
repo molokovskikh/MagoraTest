@@ -14,6 +14,10 @@ using System.Web.Mvc;
 
 namespace WebMagora.Filters
 {
+
+    /// <summary>
+    /// Инициализация БД
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public sealed class InitDatabaseAttribute : System.Web.Mvc.ActionFilterAttribute
     {

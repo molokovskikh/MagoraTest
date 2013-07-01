@@ -30,12 +30,21 @@ namespace WebMagora.Filters
 
         }
 
-
+        /// <summary>
+        /// Проверка контекста на Ajax запрос
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
         bool IsAjax(ExceptionContext c)
         {
             return (c.HttpContext.Request.Headers.Get("x-microsoftajax") ?? "")
                 .Equals("delta=true", StringComparison.OrdinalIgnoreCase);
         }
+
+        /// <summary>
+        /// Обработка исключений
+        /// </summary>
+        /// <param name="context"></param>
         public override void OnException(ExceptionContext context)
         {
             if (context.Exception is SqlException)
